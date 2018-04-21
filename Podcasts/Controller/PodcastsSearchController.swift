@@ -24,6 +24,8 @@ class PodcastsSearchController: UITableViewController {
         setupSearchBar()
         
         setupTableView()
+        
+        searchBar(searchController.searchBar, textDidChange: "Voong")
     }
     
     fileprivate func setupSearchBar() {
