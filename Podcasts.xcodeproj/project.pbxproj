@@ -28,6 +28,7 @@
 		18B2560D208C75080027A96E /* CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2560C208C75080027A96E /* CMTime.swift */; };
 		18B2560F208C84520027A96E /* PodcastsSearchingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B2560E208C81800027A96E /* PodcastsSearchingView.xib */; };
 		18B25611208C92960027A96E /* PlayerDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B25610208C928D0027A96E /* PlayerDetailsView.xib */; };
+		18B25613208CAFEE0027A96E /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B25612208CAFEE0027A96E /* UIApplication.swift */; };
 		91B21A6255B826D26E52ED8C /* Pods_Podcasts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94084DBD0F38069952E030 /* Pods_Podcasts.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		18B2560C208C75080027A96E /* CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMTime.swift; sourceTree = "<group>"; };
 		18B2560E208C81800027A96E /* PodcastsSearchingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PodcastsSearchingView.xib; sourceTree = "<group>"; };
 		18B25610208C928D0027A96E /* PlayerDetailsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDetailsView.xib; sourceTree = "<group>"; };
+		18B25612208CAFEE0027A96E /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		6566FA9BED7CB299F9E1D4C7 /* Pods-Podcasts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Podcasts.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Podcasts/Pods-Podcasts.debug.xcconfig"; sourceTree = "<group>"; };
 		8E94084DBD0F38069952E030 /* Pods_Podcasts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Podcasts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -147,6 +149,7 @@
 				18B25601208B267E0027A96E /* String.swift */,
 				18B25604208B284C0027A96E /* RSSFeed.swift */,
 				18B2560C208C75080027A96E /* CMTime.swift */,
+				18B25612208CAFEE0027A96E /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				18B25605208B284C0027A96E /* RSSFeed.swift in Sources */,
 				18B25608208B2D840027A96E /* PlayerDetailsView.swift in Sources */,
 				187624A42089D830002BCA9C /* PodcastsSearchController.swift in Sources */,
+				18B25613208CAFEE0027A96E /* UIApplication.swift in Sources */,
 				18B25602208B267E0027A96E /* String.swift in Sources */,
 				18B2560D208C75080027A96E /* CMTime.swift in Sources */,
 				187624922089C996002BCA9C /* ViewController.swift in Sources */,

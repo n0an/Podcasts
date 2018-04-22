@@ -64,25 +64,15 @@ class EpisodesController: UITableViewController {
     // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as! MainTabBarController
         
         let episode = self.episodes[indexPath.row]
         print("Trying to play episode:", episode.title)
         
-        mainTabBarController.maximizePlayerDetails(episode: episode)
+        UIApplication.mainTabBarController().maximizePlayerDetails(episode: episode)
         
         tableView.deselectRow(at: indexPath, animated: true)
         
         
-//
-//        let window = UIApplication.shared.keyWindow
-//
-//        let playerDetailsView = PlayerDetailsView.initFromNib()
-//
-//        playerDetailsView.episode = episode
-//
-//        playerDetailsView.frame = self.view.frame
-//        window?.addSubview(playerDetailsView)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

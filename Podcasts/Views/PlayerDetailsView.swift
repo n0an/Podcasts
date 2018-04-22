@@ -88,7 +88,7 @@ class PlayerDetailsView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
+        setupGestures()
         
         observePlayerCurrentTime()
         
@@ -105,6 +105,14 @@ class PlayerDetailsView: UIView {
     }
     
     // MARK: - HELPER METHODS
+    fileprivate func setupGestures() {
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
+        
+        miniPlayerView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+        
+        maximizedStackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismissalPan)))
+    }
+    
     fileprivate func observePlayerCurrentTime() {
         let interval = CMTimeMake(1, 2)
         
@@ -159,7 +167,74 @@ class PlayerDetailsView: UIView {
         player.seek(to: seekTime)
     }
     
+    fileprivate func handlePanEnded(_ gesture: UIPanGestureRecognizer, _ translation: CGPoint) {
+        let velocity = gesture.velocity(in: self.superview)
+        
+        print("velocity ", velocity)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            
+            self.transform = .identity
+            
+            if translation.y < -200 || velocity.y < -500 {
+                
+                UIApplication.mainTabBarController().maximizePlayerDetails(episode: nil)
+                
+            } else {
+                self.miniPlayerView.alpha = 1
+                self.maximizedStackView.alpha = 0
+            }
+            
+        })
+    }
+    
+    fileprivate func handlePanChanged(_ translation: CGPoint) {
+        self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        
+        self.miniPlayerView.alpha = 1 + translation.y / 200
+        self.maximizedStackView.alpha = -translation.y / 200
+    }
+    
     // MARK: - ACTIONS
+    @objc func handlePan(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: self.superview)
+        print("translation: ", translation)
+        
+        switch gesture.state {
+        case .began:
+            break
+        case .changed:
+            handlePanChanged(translation)
+            
+        case .ended:
+            handlePanEnded(gesture, translation)
+            
+        default:
+            break
+        }
+    }
+    
+    @objc func handleDismissalPan(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: self.superview)
+
+        switch gesture.state {
+        case .changed:
+            maximizedStackView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            
+        case .ended:
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.maximizedStackView.transform = .identity
+                
+                if translation.y > 50 {
+                    
+                    UIApplication.mainTabBarController().minimizePlayerDetails()
+                }
+            })
+        default:
+            break
+        }
+    }
+    
     @objc func handlePlayPause() {
         
         if player.timeControlStatus == .paused {
@@ -176,15 +251,15 @@ class PlayerDetailsView: UIView {
     }
     
     @objc func handleTapMaximize() {
-        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as! MainTabBarController
         
-        mainTabBarController.maximizePlayerDetails(episode: nil)
+        UIApplication.mainTabBarController().maximizePlayerDetails(episode: nil)
+        
     }
     
     @IBAction func handleDismiss(_ sender: Any) {
-        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as! MainTabBarController
         
-        mainTabBarController.minimizePlayerDetails()
+        UIApplication.mainTabBarController().minimizePlayerDetails()
+        
     }
     
     @IBAction func handleCurrentTimeSliderChange(_ sender: Any) {
