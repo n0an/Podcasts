@@ -11,25 +11,25 @@ import FeedKit
 
 class EpisodesController: UITableViewController {
     
+    // MARK: - PROPERTIES
     var podcast: Podcast! {
         didSet {
             navigationItem.title = podcast.trackName
-            
             fetchEpisodes()
         }
     }
     
     fileprivate let cellId = "cellId"
-    
     var episodes = [Episode]()
 
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTableView()
-        
     }
     
+    // MARK: - HELPER METHODS
     fileprivate func setupTableView() {
         let nib = UINib(nibName: "EpisodeCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellId)
@@ -41,10 +41,10 @@ class EpisodesController: UITableViewController {
         
         guard let feedUrl = podcast?.feedUrl else { return }
         
-        APIService.shared.fetchEpisodes(feedUrl: feedUrl) { (episodes) in
-            self.episodes = episodes
+        APIService.shared.fetchEpisodes(feedUrl: feedUrl) { [weak self] (episodes) in
+            self?.episodes = episodes
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self?.tableView.reloadData()
             }
         }
     }
@@ -61,10 +61,7 @@ class EpisodesController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 134
-    }
-    
+    // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -81,5 +78,19 @@ class EpisodesController: UITableViewController {
         playerDetailsView.frame = self.view.frame
         window?.addSubview(playerDetailsView)
     }
-
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 134
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicatorView.color = .darkGray
+        activityIndicatorView.startAnimating()
+        return activityIndicatorView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return episodes.isEmpty ? 200 : 0
+    }
 }
