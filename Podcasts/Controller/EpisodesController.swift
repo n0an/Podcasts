@@ -68,11 +68,9 @@ class EpisodesController: UITableViewController {
         let episode = self.episodes[indexPath.row]
         print("Trying to play episode:", episode.title)
         
-        UIApplication.mainTabBarController().maximizePlayerDetails(episode: episode)
+        UIApplication.mainTabBarController().maximizePlayerDetails(episode: episode, playlistEpisodes: self.episodes)
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
