@@ -8,12 +8,17 @@
 
 import UIKit
 
+public enum MainTabBarItems: Int {
+    case favorites = 0
+    case search = 1
+    case downloads = 2
+}
+
 class MainTabBarController: UITabBarController {
     
     var maximizedTopAnchorConstraint: NSLayoutConstraint!
     var minimizedTopAnchorConstraint: NSLayoutConstraint!
     var bottomAnchorConstraint: NSLayoutConstraint!
-
     
     let playerDetailsView = PlayerDetailsView.initFromNib()
 
@@ -49,9 +54,11 @@ class MainTabBarController: UITabBarController {
     }
     
     fileprivate func setupViewControllers() {
+        let layout = UICollectionViewFlowLayout()
+        let favoritesController = FavoritesController(collectionViewLayout: layout)
         viewControllers = [
+            generateNavigationController(with: favoritesController, title: "Favorites", image: #imageLiteral(resourceName: "favorites")),
             generateNavigationController(with: PodcastsSearchController(), title: "Search", image: #imageLiteral(resourceName: "search")),
-            generateNavigationController(with: ViewController(), title: "Favorites", image: #imageLiteral(resourceName: "favorites")),
             generateNavigationController(with: ViewController(), title: "Downloads", image: #imageLiteral(resourceName: "downloads")),
         ]
     }

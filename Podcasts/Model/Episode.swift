@@ -9,7 +9,7 @@
 import Foundation
 import FeedKit
 
-struct Episode {
+struct Episode: Equatable {
     let title: String
     let pubDate: Date
     let description: String

@@ -240,9 +240,7 @@ class PlayerDetailsView: UIView {
         
         guard !playlistEpisodes.isEmpty else { return }
         
-        let currentEpisodeIndex = playlistEpisodes.index {
-            return self.episode.title == $0.title && self.episode.author == $0.author
-        }
+        let currentEpisodeIndex = playlistEpisodes.index(of: episode)
         
         guard var index = currentEpisodeIndex else { return }
         
