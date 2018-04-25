@@ -9,13 +9,14 @@
 import Foundation
 import FeedKit
 
-struct Episode: Equatable {
+struct Episode: Codable, Equatable {
     let title: String
     let pubDate: Date
     let description: String
     let author: String
     
     let streamUrl: String
+    var fileUrl: String?
     
     var imageUrl: String?
     
@@ -30,5 +31,10 @@ struct Episode: Equatable {
         self.author = feedItem.iTunes?.iTunesAuthor ?? ""
         
         self.imageUrl = feedItem.iTunes?.iTunesImage?.attributes?.href
+    }
+    
+    static func ==(lhs: Episode, rhs: Episode) -> Bool {
+        return lhs.title == rhs.title && lhs.author == rhs.author &&  lhs.streamUrl == rhs.streamUrl
+        
     }
 }

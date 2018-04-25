@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1526E7942090A3B400698C4B /* DownloadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1526E7932090A3B400698C4B /* DownloadsController.swift */; };
 		187624902089C996002BCA9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1876248F2089C996002BCA9C /* AppDelegate.swift */; };
 		187624922089C996002BCA9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187624912089C996002BCA9C /* ViewController.swift */; };
 		187624952089C996002BCA9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187624932089C996002BCA9C /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1526E7932090A3B400698C4B /* DownloadsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsController.swift; sourceTree = "<group>"; };
 		1876248C2089C996002BCA9C /* Podcasts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Podcasts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1876248F2089C996002BCA9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		187624912089C996002BCA9C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				187624A32089D830002BCA9C /* PodcastsSearchController.swift */,
 				18B255F9208B20580027A96E /* EpisodesController.swift */,
 				18B25614208DE0E50027A96E /* FavoritesController.swift */,
+				1526E7932090A3B400698C4B /* DownloadsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				18B255FF208B25260027A96E /* EpisodeCell.swift in Sources */,
 				18B25615208DE0E50027A96E /* FavoritesController.swift in Sources */,
 				187624AA2089ED6C002BCA9C /* APIService.swift in Sources */,
+				1526E7942090A3B400698C4B /* DownloadsController.swift in Sources */,
 				187624A62089D894002BCA9C /* Podcast.swift in Sources */,
 				18B25619208E05A10027A96E /* UserDefaults.swift in Sources */,
 				18B255FD208B250B0027A96E /* Episode.swift in Sources */,

@@ -74,4 +74,31 @@ class APIService {
             
         }
     }
+    
+    func downloadEpisode(episode: Episode, completion: @escaping (String) -> ()) {
+        
+        let downloadRequest = DownloadRequest.suggestedDownloadDestination()
+        
+        Alamofire.download(episode.streamUrl, to: downloadRequest).downloadProgress { (progress) in
+            print(progress.fractionCompleted)
+
+            }.response { (response) in
+                let localUrlString = response.destinationURL?.absoluteString ?? ""
+                print(localUrlString)
+                completion(localUrlString)
+        }
+        
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -342,9 +342,26 @@ class PlayerDetailsView: UIView {
     }
     
     fileprivate func playEpisode() {
-        print("Trying to play episode at url: ", episode.streamUrl)
         
-        guard let url = URL(string: episode.streamUrl) else { return }
+        if let fileUrl = episode.fileUrl {
+            
+            let fileName = URL(string: fileUrl)?.lastPathComponent
+            
+            guard var trueLocation = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+            
+            trueLocation.appendPathComponent(fileName ?? "")
+            
+            lauchPlayerWithURL(trueLocation)
+            
+        } else {
+            print("Trying to play episode at url: ", episode.streamUrl)
+            
+            guard let url = URL(string: episode.streamUrl) else { return }
+            lauchPlayerWithURL(url)
+        }
+    }
+    
+    fileprivate func lauchPlayerWithURL(_ url: URL) {
         let currentItem = AVPlayerItem(url: url)
         
         player.replaceCurrentItem(with: currentItem)
