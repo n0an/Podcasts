@@ -46,8 +46,6 @@ class DownloadsController: UITableViewController {
         cell.progressLabel.isHidden = progress == 1 ? true : false
         
         cell.progressLabel.text = "\(Int(progress * 100))%"
-        
-        
     }
     
     @objc fileprivate func handleDownloadComplete(notification: Notification) {
@@ -56,8 +54,6 @@ class DownloadsController: UITableViewController {
         guard let index = self.episodes.index(where: {$0.title == episodeDownloadComplete.episodeTitle }) else { return }
 
         self.episodes[index].fileUrl = episodeDownloadComplete.fileUrl
-        
-        
     }
     
     fileprivate func setupTableView() {
@@ -85,7 +81,6 @@ class DownloadsController: UITableViewController {
         UserDefaults.standard.deleteEpisode(episode: episodes[indexPath.row])
         episodes.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -93,7 +88,6 @@ class DownloadsController: UITableViewController {
         let episode = episodes[indexPath.row]
         
         if episode.fileUrl != nil {
-            
             UIApplication.mainTabBarController().maximizePlayerDetails(episode: episode, playlistEpisodes: episodes)
         } else {
             let alertController = UIAlertController(title: "File URL not found", message: "Cannont find local file, play using Stream URL instead", preferredStyle: .actionSheet)
@@ -107,8 +101,6 @@ class DownloadsController: UITableViewController {
             
             present(alertController, animated: true)
         }
-        
     }
-    
 }
 

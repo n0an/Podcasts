@@ -109,7 +109,6 @@ class PlayerDetailsView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        setupAudioSessions()
         setupRemoteControl()
         
         setupGestures()
@@ -308,10 +307,6 @@ class PlayerDetailsView: UIView {
 
         guard let currentItem = player.currentItem else { return }
         let durationInSeconds = CMTimeGetSeconds(currentItem.duration)
-
-//        let elapsedTime = CMTimeGetSeconds(player.currentTime())
-//
-//        nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = elapsedTime
 
         nowPlayingInfo![MPMediaItemPropertyPlaybackDuration] = durationInSeconds
 

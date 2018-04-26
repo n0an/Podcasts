@@ -12,7 +12,4 @@ extension Notification.Name {
     
     static let downloadProgress = Notification.Name("downloadProgress")
     static let downloadComplete = NSNotification.Name("downloadComplete")
-
 }
-
-

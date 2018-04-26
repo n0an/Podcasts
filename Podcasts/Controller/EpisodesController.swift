@@ -45,12 +45,6 @@ class EpisodesController: UITableViewController {
             
         } else {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite))
-            
-//            navigationItem.rightBarButtonItems = [
-//
-//                UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite)),
-//                UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(handleFetchSavedPodcast)),
-//            ]
         }
     }
     
@@ -163,15 +157,3 @@ class EpisodesController: UITableViewController {
         return [downloadAction]
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

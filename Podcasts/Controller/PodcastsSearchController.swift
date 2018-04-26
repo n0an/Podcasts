@@ -23,7 +23,7 @@ class PodcastsSearchController: UITableViewController {
         super.viewDidLoad()
         setupSearchBar()
         setupTableView()
-        searchBar(searchController.searchBar, textDidChange: "Voong")
+//        searchBar(searchController.searchBar, textDidChange: "Voong")
     }
     
     // MARK: - HELPER METHODS
