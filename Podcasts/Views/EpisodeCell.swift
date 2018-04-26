@@ -24,6 +24,8 @@ class EpisodeCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var progressLabel: UILabel!
+
     var episode: Episode! {
         didSet {
             titleLabel.text = episode.title

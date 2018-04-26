@@ -33,8 +33,4 @@ struct Episode: Codable, Equatable {
         self.imageUrl = feedItem.iTunes?.iTunesImage?.attributes?.href
     }
     
-    static func ==(lhs: Episode, rhs: Episode) -> Bool {
-        return lhs.title == rhs.title && lhs.author == rhs.author &&  lhs.streamUrl == rhs.streamUrl
-        
-    }
 }

@@ -345,6 +345,8 @@ class PlayerDetailsView: UIView {
         
         if let fileUrl = episode.fileUrl {
             
+            print("Trying to play episode at file url: ", fileUrl)
+
             let fileName = URL(string: fileUrl)?.lastPathComponent
             
             guard var trueLocation = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
@@ -354,7 +356,7 @@ class PlayerDetailsView: UIView {
             lauchPlayerWithURL(trueLocation)
             
         } else {
-            print("Trying to play episode at url: ", episode.streamUrl)
+            print("Trying to play episode at stream url: ", episode.streamUrl)
             
             guard let url = URL(string: episode.streamUrl) else { return }
             lauchPlayerWithURL(url)

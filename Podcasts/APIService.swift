@@ -12,6 +12,8 @@ import FeedKit
 
 class APIService {
     
+    typealias EpisodeDownloadCompleteTuple = (fileUrl: String?, episodeTitle: String)
+    
     struct SearchResults: Decodable {
         let resultCount: Int
         let results: [Podcast]
@@ -75,19 +77,38 @@ class APIService {
         }
     }
     
-    func downloadEpisode(episode: Episode, completion: @escaping (String) -> ()) {
+    func downloadEpisode(episode: Episode) {
         
         let downloadRequest = DownloadRequest.suggestedDownloadDestination()
         
         Alamofire.download(episode.streamUrl, to: downloadRequest).downloadProgress { (progress) in
             print(progress.fractionCompleted)
+            
+            NotificationCenter.default.post(name: .downloadProgress, object: nil, userInfo: ["title": episode.title, "progress": progress.fractionCompleted])
 
             }.response { (response) in
-                let localUrlString = response.destinationURL?.absoluteString ?? ""
-                print(localUrlString)
-                completion(localUrlString)
+                let localUrlString = response.destinationURL?.absoluteString
+                
+                let episodeDownloadComplete = EpisodeDownloadCompleteTuple(localUrlString, episode.title)
+                NotificationCenter.default.post(name: .downloadComplete, object: episodeDownloadComplete, userInfo: nil)
+                
+                
+                var downloadedEpisodes = UserDefaults.standard.fetchDownloadedEpisodes()
+                
+                guard let index = downloadedEpisodes.index(of: episode) else { return }
+                
+                downloadedEpisodes[index].fileUrl = localUrlString
+                
+                let encoder = JSONEncoder()
+                
+                do {
+                    let episodesData = try encoder.encode(downloadedEpisodes)
+                    
+                    UserDefaults.standard.set(episodesData, forKey: UserDefaults.kDownloadedEpisodesKey)
+                } catch let encErr {
+                    print(encErr)
+                }
         }
-        
     }
 }
 

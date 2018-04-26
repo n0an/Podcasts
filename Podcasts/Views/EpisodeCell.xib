@@ -49,9 +49,19 @@
                             </label>
                         </subviews>
                     </stackView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIl-p4-vbb">
+                        <rect key="frame" x="28" y="98.5" width="77" height="34.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <size key="shadowOffset" width="0.0" height="1"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="9zu-lb-pOC" firstAttribute="leading" secondItem="uS3-pp-5xD" secondAttribute="trailing" constant="16" id="076-mD-P1L"/>
+                    <constraint firstItem="CIl-p4-vbb" firstAttribute="centerX" secondItem="uS3-pp-5xD" secondAttribute="centerX" id="5JP-pm-mDk"/>
+                    <constraint firstItem="CIl-p4-vbb" firstAttribute="centerY" secondItem="uS3-pp-5xD" secondAttribute="centerY" id="AOS-qg-u28"/>
                     <constraint firstAttribute="trailingMargin" secondItem="9zu-lb-pOC" secondAttribute="trailing" id="SNN-5J-Yk4"/>
                     <constraint firstItem="uS3-pp-5xD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="VFW-jf-Cfb"/>
                     <constraint firstItem="9zu-lb-pOC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="igk-sG-gPZ"/>
@@ -62,6 +72,7 @@
             <connections>
                 <outlet property="descriptionLabel" destination="aHj-b1-khI" id="xoq-kH-y35"/>
                 <outlet property="episodeImageView" destination="uS3-pp-5xD" id="8Ia-Rj-Kds"/>
+                <outlet property="progressLabel" destination="CIl-p4-vbb" id="CSd-Ad-Jza"/>
                 <outlet property="pubDateLabel" destination="aN8-nD-kNf" id="ZSK-CO-s51"/>
                 <outlet property="titleLabel" destination="fW3-4s-8qq" id="hCy-dE-c5A"/>
             </connections>

@@ -46,30 +46,38 @@ extension UserDefaults {
     
     func downloadEpisode(episode: Episode) {
         
-        var episode = episode
-        
         let encoder = JSONEncoder()
         
         var listOfDownloadedEpisodes = fetchDownloadedEpisodes()
         
         guard !listOfDownloadedEpisodes.contains(episode) else { return }
         
-        APIService.shared.downloadEpisode(episode: episode) { (str) in
+        do {
+            listOfDownloadedEpisodes.insert(episode, at: 0)
             
-            do {
-                
-                episode.fileUrl = str
-                
-                listOfDownloadedEpisodes.insert(episode, at: 0)
-                
-                let episodesData = try encoder.encode(listOfDownloadedEpisodes)
-                
-                UserDefaults.standard.set(episodesData, forKey: UserDefaults.kDownloadedEpisodesKey)
-                
-            } catch {
-                print(error)
-            }
+            let episodesData = try encoder.encode(listOfDownloadedEpisodes)
+            
+            UserDefaults.standard.set(episodesData, forKey: UserDefaults.kDownloadedEpisodesKey)
+        } catch let encErr {
+            print(encErr)
         }
+        
+//        APIService.shared.downloadEpisode(episode: episode) { (str) in
+//
+//            do {
+//
+//                episode.fileUrl = str
+//
+//                listOfDownloadedEpisodes.insert(episode, at: 0)
+//
+//                let episodesData = try encoder.encode(listOfDownloadedEpisodes)
+//
+//                UserDefaults.standard.set(episodesData, forKey: UserDefaults.kDownloadedEpisodesKey)
+//
+//            } catch {
+//                print(error)
+//            }
+//        }
     }
     
     func deleteEpisode(episode: Episode) {

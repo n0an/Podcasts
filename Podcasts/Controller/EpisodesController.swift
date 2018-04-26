@@ -157,6 +157,8 @@ class EpisodesController: UITableViewController {
             
             UserDefaults.standard.downloadEpisode(episode: episode)
             
+            APIService.shared.downloadEpisode(episode: episode)
+            
         }
         return [downloadAction]
     }

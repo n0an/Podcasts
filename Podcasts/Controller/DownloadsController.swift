@@ -18,12 +18,46 @@ class DownloadsController: UITableViewController {
         super.viewDidLoad()
 
         setupTableView()
+        setupObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         episodes = UserDefaults.standard.fetchDownloadedEpisodes()
         tableView.reloadData()
+    }
+    
+    fileprivate func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDownloadProgress), name: .downloadProgress, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDownloadComplete), name: .downloadComplete, object: nil)
+    }
+    
+    @objc fileprivate func handleDownloadProgress(notification: Notification) {
+        guard let progress = notification.userInfo?["progress"] as? Double else { return }
+        guard let title = notification.userInfo?["title"] as? String else { return }
+        
+        guard let index = self.episodes.index(where: {$0.title == title }) else { return }
+        
+        guard let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? EpisodeCell else { return }
+        
+        print(progress, title)
+        
+        cell.progressLabel.isHidden = progress == 1 ? true : false
+        
+        cell.progressLabel.text = "\(Int(progress * 100))%"
+        
+        
+    }
+    
+    @objc fileprivate func handleDownloadComplete(notification: Notification) {
+        guard let episodeDownloadComplete = notification.object as? APIService.EpisodeDownloadCompleteTuple else { return }
+        
+        guard let index = self.episodes.index(where: {$0.title == episodeDownloadComplete.episodeTitle }) else { return }
+
+        self.episodes[index].fileUrl = episodeDownloadComplete.fileUrl
+        
+        
     }
     
     fileprivate func setupTableView() {
@@ -58,8 +92,22 @@ class DownloadsController: UITableViewController {
         
         let episode = episodes[indexPath.row]
         
+        if episode.fileUrl != nil {
+            
+            UIApplication.mainTabBarController().maximizePlayerDetails(episode: episode, playlistEpisodes: episodes)
+        } else {
+            let alertController = UIAlertController(title: "File URL not found", message: "Cannont find local file, play using Stream URL instead", preferredStyle: .actionSheet)
+            
+            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+                UIApplication.mainTabBarController().maximizePlayerDetails(episode: episode, playlistEpisodes: self.episodes)
+                
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            present(alertController, animated: true)
+        }
         
-        UIApplication.mainTabBarController().maximizePlayerDetails(episode: episode, playlistEpisodes: episodes)
     }
     
 }
