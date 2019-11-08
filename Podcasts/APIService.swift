@@ -14,15 +14,17 @@ class APIService {
     
     typealias EpisodeDownloadCompleteTuple = (fileUrl: String?, episodeTitle: String)
     
-    struct SearchResults: Decodable {
+    fileprivate struct SearchResults: Decodable {
         let resultCount: Int
         let results: [Podcast]
     }
     
+    // MARK: - SINGLETON
     static let shared = APIService()
     
     private init() {}
     
+    // MARK: - PUBLIC METHODS
     func fetchEpisodes(feedUrl: String, completionHandler: @escaping ([Episode]) -> ()) {
         
         let secureFeedUrl = feedUrl.toSecureHTTPS()
@@ -84,9 +86,13 @@ class APIService {
         Alamofire.download(episode.streamUrl, to: downloadRequest).downloadProgress { (progress) in
             print(progress.fractionCompleted)
             
+            // !!!IMPORTANT!!!
+            // Download progress Alamofire
             NotificationCenter.default.post(name: .downloadProgress, object: nil, userInfo: ["title": episode.title, "progress": progress.fractionCompleted])
 
             }.response { (response) in
+                // !!!IMOPRTANT!!!
+                // Saving downloaded episode to disk
                 let localUrlString = response.destinationURL?.absoluteString
                 
                 let episodeDownloadComplete = EpisodeDownloadCompleteTuple(localUrlString, episode.title)

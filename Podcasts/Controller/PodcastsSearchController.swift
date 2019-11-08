@@ -29,6 +29,10 @@ class PodcastsSearchController: UITableViewController {
     // MARK: - HELPER METHODS
     fileprivate func setupSearchBar() {
         self.definesPresentationContext = true
+        
+        // !!!IMPORTANT!!!
+        // Adding searchController to navigationItem
+        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.dimsBackgroundDuringPresentation = false

@@ -11,11 +11,13 @@ import SDWebImage
 
 class PodcastCell: UITableViewCell {
     
+    // MARK: - OUTLETS
     @IBOutlet weak var podcastImageView: UIImageView!
     @IBOutlet weak var trackNameLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var episodeCountLabel: UILabel!
     
+    // MARK: - PROPERTIES
     var podcast: Podcast! {
         didSet {
             trackNameLabel.text = podcast.trackName

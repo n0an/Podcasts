@@ -9,6 +9,8 @@
 import UIKit
 
 extension UIApplication {
+    // !!!IMPORTANT!!!
+    // Handy way to get to necessary controller
     static func mainTabBarController() -> MainTabBarController {
         return shared.keyWindow?.rootViewController as! MainTabBarController
     }

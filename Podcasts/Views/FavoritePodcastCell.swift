@@ -10,6 +10,7 @@ import UIKit
 
 class FavoritePodcastCell: UICollectionViewCell {
     
+    // MARK: - PROPERTIES
     let imageView = UIImageView(image: #imageLiteral(resourceName: "appicon"))
     let nameLabel = UILabel()
     let artistNameLabel = UILabel()
@@ -24,6 +25,7 @@ class FavoritePodcastCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -31,6 +33,7 @@ class FavoritePodcastCell: UICollectionViewCell {
         setupViews()
     }
     
+    // MARK: - HELPER METHODS
     fileprivate func stylizeUI() {
         nameLabel.text = "Name"
         nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)

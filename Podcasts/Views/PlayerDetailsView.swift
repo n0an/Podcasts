@@ -184,6 +184,8 @@ class PlayerDetailsView: UIView {
     }
     
     fileprivate func setupRemoteControl() {
+        // !!!IMPORTANT!!!
+        // CommandCenter config
         UIApplication.shared.beginReceivingRemoteControlEvents()
         
         let commandCenter =  MPRemoteCommandCenter.shared()
@@ -222,9 +224,9 @@ class PlayerDetailsView: UIView {
             return .success
         }
         
-        commandCenter.nextTrackCommand.addTarget(self, action: #selector(handleNextTrack))
-        
-        commandCenter.previousTrackCommand.addTarget(self, action: #selector(handlePreviousTrack))
+//        commandCenter.nextTrackCommand.addTarget(self, action: #selector(handleNextTrack))
+//
+//        commandCenter.previousTrackCommand.addTarget(self, action: #selector(handlePreviousTrack))
     }
     
     @objc fileprivate func handleNextTrack() {
@@ -373,6 +375,7 @@ class PlayerDetailsView: UIView {
         player.seek(to: seekTime)
     }
     
+    // MARK: - ACTIONS
     fileprivate func handlePanEnded(_ gesture: UIPanGestureRecognizer, _ translation: CGPoint) {
         let velocity = gesture.velocity(in: self.superview)
         
@@ -401,7 +404,6 @@ class PlayerDetailsView: UIView {
         self.maximizedStackView.alpha = -translation.y / 200
     }
     
-    // MARK: - ACTIONS
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self.superview)
         print("translation: ", translation)

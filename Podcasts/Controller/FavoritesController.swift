@@ -10,10 +10,12 @@ import UIKit
 
 class FavoritesController: UICollectionViewController {
     
+    // MARK: - PROPERTIES
     fileprivate let cellId = "cellId"
     
     var podcasts = UserDefaults.standard.fetchPodcasts()
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +32,7 @@ class FavoritesController: UICollectionViewController {
 
     }
     
+    // MARK: - HELPER METHODS
     fileprivate func setupCollectionView() {
         collectionView?.backgroundColor = .white
         collectionView?.register(FavoritePodcastCell.self, forCellWithReuseIdentifier: cellId)
@@ -38,6 +41,7 @@ class FavoritesController: UICollectionViewController {
         collectionView?.addGestureRecognizer(gesture)
     }
     
+    // MARK: - ACTIONS
     @objc fileprivate func handleLongPress(gesture: UILongPressGestureRecognizer) {
         let location = gesture.location(in: collectionView)
         guard let selectedIndexPath = collectionView?.indexPathForItem(at: location) else { return }

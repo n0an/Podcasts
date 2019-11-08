@@ -10,10 +10,12 @@ import UIKit
 
 class DownloadsController: UITableViewController {
     
+    // MARK: - PROPETIES
     fileprivate let cellId = "cellId"
     
     var episodes = UserDefaults.standard.fetchDownloadedEpisodes()
 
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,12 +29,19 @@ class DownloadsController: UITableViewController {
         tableView.reloadData()
     }
     
+    // MARK: - HELPER METHODS
     fileprivate func setupObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleDownloadProgress), name: .downloadProgress, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleDownloadComplete), name: .downloadComplete, object: nil)
     }
     
+    fileprivate func setupTableView() {
+        let nib = UINib(nibName: "EpisodeCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: cellId)
+    }
+    
+    // MARK: - ACTIONS
     @objc fileprivate func handleDownloadProgress(notification: Notification) {
         guard let progress = notification.userInfo?["progress"] as? Double else { return }
         guard let title = notification.userInfo?["title"] as? String else { return }
@@ -56,11 +65,7 @@ class DownloadsController: UITableViewController {
         self.episodes[index].fileUrl = episodeDownloadComplete.fileUrl
     }
     
-    fileprivate func setupTableView() {
-        let nib = UINib(nibName: "EpisodeCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: cellId)
-    }
-    
+    // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return episodes.count
     }
@@ -72,6 +77,7 @@ class DownloadsController: UITableViewController {
         return cell
     }
     
+    // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 130
     }

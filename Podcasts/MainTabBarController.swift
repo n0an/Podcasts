@@ -16,12 +16,14 @@ public enum MainTabBarItems: Int {
 
 class MainTabBarController: UITabBarController {
     
+    // MARK: - PROPERTIES
     var maximizedTopAnchorConstraint: NSLayoutConstraint!
     var minimizedTopAnchorConstraint: NSLayoutConstraint!
     var bottomAnchorConstraint: NSLayoutConstraint!
     
     let playerDetailsView = PlayerDetailsView.initFromNib()
 
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         UINavigationBar.appearance().prefersLargeTitles = true
@@ -31,6 +33,7 @@ class MainTabBarController: UITabBarController {
         setupPlayerDetailsView()
     }
     
+    // MARK: - HELPER METHODS
     fileprivate func setupPlayerDetailsView() {
         
         playerDetailsView.translatesAutoresizingMaskIntoConstraints = false
@@ -48,8 +51,8 @@ class MainTabBarController: UITabBarController {
         let constraints = [
             playerDetailsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playerDetailsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
             ]
+        
         constraints.forEach { $0.isActive = true }
     }
     
@@ -74,6 +77,7 @@ class MainTabBarController: UITabBarController {
         return navController
     }
     
+    // MARK: - ACTIONS
     @objc func minimizePlayerDetails() {
         maximizedTopAnchorConstraint.isActive = false
         bottomAnchorConstraint.constant = view.frame.height

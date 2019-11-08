@@ -10,6 +10,7 @@ import Foundation
 import FeedKit
 
 struct Episode: Codable, Equatable {
+    // MARK: - PROPERTIES
     let title: String
     let pubDate: Date
     let description: String
@@ -20,6 +21,7 @@ struct Episode: Codable, Equatable {
     
     var imageUrl: String?
     
+    // MARK: - INIT
     init(feedItem: RSSFeedItem) {
         
         self.streamUrl = feedItem.enclosure?.attributes?.url ?? ""
